@@ -30,7 +30,8 @@ router.post('/affordability', function(req, res, next) {
 
         loan_term = req.body.term
         loan_amount = req.body.loan_amount
-        load_threshold = 0.9
+        loan_threshold = 0.9
+        loan_term_threshold = 35
 
         expenditure_threshold = 0.7
         expenditure_income_percentage = personInfo["finances"]["montly"] / personInfo["finances"]["montly income"]  
@@ -39,8 +40,12 @@ router.post('/affordability', function(req, res, next) {
             res.json({ "type": "affordabilityCheck", "passed": false, "reason": "Expenditure greater " + expenditure_threshold*100 + " percent of income" })
         }
 
-        else if (loan_amount / propertyInfo["value"] > load_threshold) {
-            res.json({ "type": "affordabilityCheck", "passed": false, "reason": "Load to value is greater than " + load_threshold*100 + " percent" })
+        else if (loan_amount / propertyInfo["value"] > loan_threshold) {
+            res.json({ "type": "affordabilityCheck", "passed": false, "reason": "Loan to value is greater than " + loan_threshold*100 + " percent" })
+        } 
+
+        else if (loan_term > loan_term_threshold) {
+            res.json({ "type": "affordabilityCheck", "passed": false, "reason": "Loan term is greater than " + loan_term_threshold })
         } 
 
         else {
