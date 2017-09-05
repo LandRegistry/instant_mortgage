@@ -1,0 +1,5 @@
+---
+applications:
+ - name: Instant_Mortgage
+   random-route: true
+   memory: 128M
