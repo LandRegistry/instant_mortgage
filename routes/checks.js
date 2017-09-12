@@ -8,7 +8,7 @@ router.post('/identity', function(req, res, next) {
 
 router.post('/property', function(req, res, next) {
 
-  request("https://propertyapi-undominative-homiletics.eu-gb.mybluemix.net/v1/properties/" + req.body.uprn, function(error, response, body) {
+  request("https://propertyapi-laming-typw.eu-gb.mybluemix.net/v1/properties/" + req.body.uprn, function(error, response, body) {
     var propertyInfo = JSON.parse(body);
 
     if (propertyInfo["value"] > 3000000) {
@@ -22,10 +22,10 @@ router.post('/property', function(req, res, next) {
 
 router.post('/affordability', function(req, res, next) {
 
-  request("https://propertyapi-undominative-homiletics.eu-gb.mybluemix.net/v1/properties/" + req.body.uprn, function(error, response, body) {
+  request("https://propertyapi-laming-typw.eu-gb.mybluemix.net/v1/properties/" + req.body.uprn, function(error, response, body) {
     var propertyInfo = JSON.parse(body);
 
-    request("http://personapi-drinkable-conceitedness.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
+    request("http://personapi-multistory-sapidity.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
         var personInfo = JSON.parse(body);
 
         loan_term = req.body.term
@@ -34,7 +34,7 @@ router.post('/affordability', function(req, res, next) {
         loan_term_threshold = 35
 
         expenditure_threshold = 0.7
-        expenditure_income_percentage = personInfo["finances"]["montly"] / personInfo["finances"]["montly income"]  
+        expenditure_income_percentage = personInfo["finances"]["montly"] / personInfo["finances"]["montly income"]
 
         if (expenditure_income_percentage > expenditure_threshold) {
             res.json({ "type": "affordabilityCheck", "passed": false, "reason": "Expenditure greater " + expenditure_threshold*100 + " percent of income" })
@@ -42,11 +42,11 @@ router.post('/affordability', function(req, res, next) {
 
         else if (loan_amount / propertyInfo["value"] > loan_threshold) {
             res.json({ "type": "affordabilityCheck", "passed": false, "reason": "Loan to value is greater than " + loan_threshold*100 + " percent" })
-        } 
+        }
 
         else if (loan_term > loan_term_threshold) {
             res.json({ "type": "affordabilityCheck", "passed": false, "reason": "Loan term is greater than " + loan_term_threshold })
-        } 
+        }
 
         else {
             res.json({ "type": "affordabilityCheck", "passed": true, "reason": "" })
@@ -57,7 +57,7 @@ router.post('/affordability', function(req, res, next) {
 
 router.post('/credit', function(req, res, next) {
 
-  request("http://personapi-drinkable-conceitedness.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
+  request("http://personapi-multistory-sapidity.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
     var personInfo = JSON.parse(body);
 
     credit_threshold = 400
@@ -73,7 +73,7 @@ router.post('/credit', function(req, res, next) {
 
 router.post('/earnings', function(req, res, next) {
 
-  request("http://personapi-drinkable-conceitedness.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
+  request("http://personapi-multistory-sapidity.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
     var personInfo = JSON.parse(body);
 
     earnings_threshold = 16000
