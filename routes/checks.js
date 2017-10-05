@@ -8,7 +8,7 @@ router.post('/identity', function(req, res, next) {
 
 router.post('/property', function(req, res, next) {
 
-  request("https://propertyapi-laming-typw.eu-gb.mybluemix.net/v1/properties/" + req.body.uprn, function(error, response, body) {
+  request("https://hmlr-ds-propertyapi.eu-gb.mybluemix.net/v1/properties/" + req.body.uprn, function(error, response, body) {
     var propertyInfo = JSON.parse(body);
 
     if (propertyInfo["value"] > 3000000) {
@@ -22,10 +22,10 @@ router.post('/property', function(req, res, next) {
 
 router.post('/affordability', function(req, res, next) {
 
-  request("https://propertyapi-laming-typw.eu-gb.mybluemix.net/v1/properties/" + req.body.uprn, function(error, response, body) {
+  request("https://hmlr-ds-propertyapi.eu-gb.mybluemix.net/v1/properties/" + req.body.uprn, function(error, response, body) {
     var propertyInfo = JSON.parse(body);
 
-    request("http://personapi-multistory-sapidity.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
+    request("https://hmlr-ds-personapi.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
         var personInfo = JSON.parse(body);
 
         loan_term = req.body.term
@@ -57,7 +57,7 @@ router.post('/affordability', function(req, res, next) {
 
 router.post('/credit', function(req, res, next) {
 
-  request("http://personapi-multistory-sapidity.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
+  request("https://hmlr-ds-personapi.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
     var personInfo = JSON.parse(body);
 
     credit_threshold = 400
@@ -73,7 +73,7 @@ router.post('/credit', function(req, res, next) {
 
 router.post('/earnings', function(req, res, next) {
 
-  request("http://personapi-multistory-sapidity.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
+  request("https://hmlr-ds-personapi.eu-gb.mybluemix.net/v1/people/" + req.body.person_id, function(error, response, body) {
     var personInfo = JSON.parse(body);
 
     earnings_threshold = 16000
