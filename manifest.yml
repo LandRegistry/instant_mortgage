@@ -1,5 +1,9 @@
 ---
 applications:
- - name: Instant_Mortgage
-   random-route: true
-   memory: 128M
+ - name: InstantMortgageAPI
+   memory: 96M
+   instances: 1
+   domain: eu-gb.mybluemix.net
+   host: hmlr-ds-instantmortgageapi
+   env:
+    NODE_ENV: production
